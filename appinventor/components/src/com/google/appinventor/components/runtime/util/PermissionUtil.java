@@ -5,7 +5,7 @@
 /**
  * @Author NMD (Next Mobile Development) [nmdofficialhelp@gmail.com]
  * To use this class: import com.google.appinventor.components.runtime.util.PermissionUtil;
- * copy 'PermissionUtil.CheckRuntimePermission(this);' method to Form.java before 'Initialize();'
+ * copy 'PermissionUtil.checkRuntimePermission(this);' method to Form.java before 'Initialize();'
  */
 
 package com.google.appinventor.components.runtime.util;
