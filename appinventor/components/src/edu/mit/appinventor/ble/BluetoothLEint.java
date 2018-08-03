@@ -1509,20 +1509,17 @@ final class BluetoothLEint {
 
         if (btAdapter != null) {
           mBluetoothLeDeviceScanner = btAdapter.getBluetoothLeScanner();
-
-          if (mBluetoothLeDeviceScanner != null) {
           
-            ScanSettings settings = new ScanSettings.Builder()
+          ScanSettings settings = new ScanSettings.Builder()
               .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
               .build();
 
-            List<ScanFilter> filters = new ArrayList<ScanFilter>();
-            ScanFilter filter = new ScanFilter.Builder().build();
-            filters.add(filter);
+          List<ScanFilter> filters = new ArrayList<ScanFilter>();
+          ScanFilter filter = new ScanFilter.Builder().build();
+          filters.add(filter);
 
-            mBluetoothLeDeviceScanner.startScan(filters, settings, mDeviceScanCallback);
-            Log.i(LOG_TAG, "StartScanning successful.");
-          }
+          mBluetoothLeDeviceScanner.startScan(filters, settings, mDeviceScanCallback);
+          Log.i(LOG_TAG, "StartScanning successful.");
         }
 
         return null;
@@ -1685,8 +1682,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEReadByteOperation(characteristic, signed, callback));
         return null;
       }
@@ -1719,8 +1721,13 @@ final class BluetoothLEint {
         new BLEAction<Void>(METHOD) {
           @Override
           public Void action() {
-            BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-                bleStringToUuid(characteristicUuid));
+            if (!validateUUID(serviceUuid, "Service", METHOD)
+                || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+              return null;
+            }
+
+            BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+                UUID.fromString(characteristicUuid));
             schedulePendingOperation(new BLEReadByteOperation(characteristic, signed, callback, true));
             return null;
           }
@@ -1735,8 +1742,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEWriteBytesOperation(characteristic, signed, values,
             BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE));
         return null;
@@ -1757,8 +1769,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEWriteBytesOperation(characteristic, signed, values, BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT));
         return null;
       }
@@ -1787,8 +1804,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEReadShortOperation(characteristic, signed, callback));
         return null;
       }
@@ -1818,8 +1840,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEReadShortOperation(characteristic, signed, callback, true));
         return null;
       }
@@ -1832,8 +1859,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEWriteShortsOperation(characteristic, signed, values,
             BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE));
         return null;
@@ -1853,8 +1885,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEWriteShortsOperation(characteristic, signed, values,
             BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT));
         return null;
@@ -1884,8 +1921,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEReadIntegerOperation(characteristic, signed, handler));
         return null;
       }
@@ -1914,8 +1956,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEReadIntegerOperation(characteristic, signed, handler, true));
         return null;
       }
@@ -1928,8 +1975,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEWriteIntegersOperation(characteristic, signed, values,
             BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE));
         return null;
@@ -1949,8 +2001,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEWriteIntegersOperation(characteristic, signed, values,
             BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT));
         return null;
@@ -1981,8 +2038,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEReadFloatOperation(characteristic, shortFloat, callback));
         return null;
       }
@@ -2013,8 +2075,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEReadFloatOperation(characteristic, shortFloat, callback, true));
         return null;
       }
@@ -2027,8 +2094,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEWriteFloatsOperation(characteristic, shortFloat, values,
             BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE));
         return null;
@@ -2048,8 +2120,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEWriteFloatsOperation(characteristic, shortFloat, values,
             BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT));
         return null;
@@ -2118,8 +2195,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEReadStringOperation(characteristic, utf16, handler, true));
         return null;
       }
@@ -2132,8 +2214,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEWriteStringsOperation(characteristic, utf16, values,
             BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE));
         return null;
@@ -2153,8 +2240,13 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        BluetoothGattCharacteristic characteristic = findMGattChar(bleStringToUuid(serviceUuid),
-            bleStringToUuid(characteristicUuid));
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        BluetoothGattCharacteristic characteristic = findMGattChar(UUID.fromString(serviceUuid),
+            UUID.fromString(characteristicUuid));
         schedulePendingOperation(new BLEWriteStringsOperation(characteristic, utf16, values,
             BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT));
         return null;
@@ -2178,7 +2270,12 @@ final class BluetoothLEint {
     new BLEAction<Void>(METHOD) {
       @Override
       public Void action() {
-        UUID characteristic = bleStringToUuid(characteristicUuid);
+        if (!validateUUID(serviceUuid, "Service", METHOD)
+            || !validateUUID(characteristicUuid, "Characteristic", METHOD)) {
+          return null;
+        }
+
+        UUID characteristic = UUID.fromString(characteristicUuid);
         List<BLEOperation> operations = pendingOperationsByUuid.get(characteristic);
         if (operations != null) {
           // Copy the list to prevent ConcurrentModificationException
